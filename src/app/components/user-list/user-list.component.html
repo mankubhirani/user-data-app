@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h2>User Table</h2>
+  
+    <input type="text" class="form-control mb-3" placeholder="Search by name or email" [(ngModel)]="searchText" (input)="filterUsers()" />
+  
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th (click)="sortBy('name')">Name</th>
+          <th (click)="sortBy('email')">Email</th>
+          <th (click)="sortBy('company')">Company</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers()" (click)="showDetails(user)">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.company.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <nav>
+      <ul class="pagination">
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+          <button class="page-link" (click)="pageNumber = i + 1">{{ i + 1 }}</button>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="mt-3">
+      <button class="btn btn-primary me-2" (click)="exportToCSV()">Export CSV</button>
+      <button class="btn btn-danger" (click)="exportToPDF()">Export PDF</button>
+    </div>
+  </div>
+  
